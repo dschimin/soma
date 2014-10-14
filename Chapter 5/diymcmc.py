@@ -31,7 +31,7 @@ class APWException(object):
 def get_data(url):
     try:
         data = np.loadtxt(urlopen(url))
-    except urllib2.URLError:
+    except URLError:
         ex = APWException("Unable to reach server! Are you sure you're connected "
                           "to the internet?")
         display(ex)
