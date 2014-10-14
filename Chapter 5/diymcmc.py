@@ -1,8 +1,22 @@
 """ Convenience functions for retrieving toy datasets """
 
 import sys
-import urllib2
-from cStringIO import StringIO
+
+try:
+    # Python 2
+    from urllib2 import urlopen, URLError
+except ImportError:
+    # Python 3
+    from urllib.request import urlopen
+    from urllib.error import URLError
+
+try:
+    # Python 2
+    from cStringIO import StringIO
+except:
+    # Python 3
+    from io import StringIO
+
 from IPython.display import display
 import numpy as np
 
@@ -16,8 +30,8 @@ class APWException(object):
 
 def get_data(url):
     try:
-        data = np.loadtxt(urllib2.urlopen(url))
-    except urllib2.URLError:
+        data = np.loadtxt(urlopen(url))
+    except URLError:
         ex = APWException("Unable to reach server! Are you sure you're connected "
                           "to the internet?")
         display(ex)
